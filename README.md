@@ -1,6 +1,12 @@
-# markdown
+# 简易博客后台管理
 
-> haha
+同样使用 Vue ＋ axios。
+
+支持文章发布、文章修改、草稿箱、文章管理、留言管理。
+
+Markdown 编辑器，支持图片上传。
+
+很轻便
 
 ## Build Setup
 
