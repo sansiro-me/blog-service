@@ -49,7 +49,7 @@ export default {
       var _this = this;
 
       this.isLoadingMsg = true;
-      axios.post('/topic.php?name=login',qs.stringify({
+      axios.post('/api/login',qs.stringify({
         nickname: _this.nickname,
         password: _this.password
       })).then(function(data) {
@@ -94,7 +94,7 @@ export default {
   width: 100%;
   height: 100%;
   font-size: 30px;
-  background-image: url("../../static/img/back.jpg");
+  background-image: url("~@/assets/images/back.jpg");
   background-size: cover;
   background-position: center center;
 }

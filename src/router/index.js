@@ -13,21 +13,21 @@ import axios from 'axios'
 
 Vue.use(Router)
 
-function isLogin() {
+// function isLogin() {
 
-  // return Math.random() > 0.5 ? true : false;
-  axios.get('/topic.php?name=login&op=check')
-    .then(function(data) {
+//   // return Math.random() > 0.5 ? true : false;
+//   axios.get('/topic.php?name=login&op=check')
+//     .then(function(data) {
       
-      if(data.data.code == 0) {
-        return true;
-      } else {
-        return false;
-      }
-    }).catch(function() {
-      return false;
-    })
-}
+//       if(data.data.code == 0) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     }).catch(function() {
+//       return false;
+//     })
+// }
 
 export default new Router({
   mode: 'history',
@@ -50,7 +50,7 @@ export default new Router({
       component: admin,
       beforeEnter: ((to, from, next) => {
           // next();
-        axios.get('/topic.php?name=login&op=check')
+        axios.get('/api/login/check')
           .then(function(data) {
             
             if(data.data.code == 0) {

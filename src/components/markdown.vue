@@ -134,7 +134,7 @@
             // console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
 
             var _this = this;
-            axios.post('/topic.php?name=Adminother', param)
+            axios.post('/api/Adminother', param)
               .then(function(data) {
                 // console.log(data);
                 _this.imgsrc = data.data.data;
@@ -150,7 +150,7 @@
               // console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
 
               var _this = this;
-              axios.post('/topic.php?name=Adminother', param)
+              axios.post('/api/Adminother', param)
                 .then(function(data) {
                   // console.log(data);
                   _this.imgsrc = data.data.data;

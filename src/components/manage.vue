@@ -53,7 +53,7 @@ export default {
     getArticelList () {
       var _this = this;
 
-      axios.get('/topic.php?name=adminarticle&op=getlist')
+      axios.get('/api/adminarticle/getlist')
         .then(function(data) {
           _this.articlelist = data.data;
         })
@@ -63,7 +63,7 @@ export default {
     },
     submitArticle (articleid) {
       var _this = this;
-      axios.get('/topic.php?name=adminarticle&op=submit_article', {
+      axios.get('/api/adminarticle/submit_article', {
         params: {
           articleid: articleid
         }
@@ -80,7 +80,7 @@ export default {
     },
     removeArticle(articleid) {
       var _this = this;
-      axios.get('/topic.php?name=adminarticle&op=remove_article', {
+      axios.get('/api/adminarticle/remove_article', {
         params: {
           articleid: articleid
         }

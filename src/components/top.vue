@@ -23,7 +23,7 @@ export default {
   methods: {
     exit () {
       var _this = this;
-      axios.get('/topic.php?name=login&op=logout')
+      axios.get('/api/login/logout')
         .then(function(data) {
           if(data.data.code == 0) {
             _this.$router.replace('/logn');

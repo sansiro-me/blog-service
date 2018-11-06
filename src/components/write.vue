@@ -1,16 +1,27 @@
 <template>
   <div class="indexContainer">
-    <div class="each-area">
-      <p>标题</p>
-      <input type="text" class="input" v-model="title">
-    </div>
-    <div class="each-area">
-      <p>索引</p>
-      <input type="text" class="input" v-model="name">
-    </div>
-    <div class="each-area">
-      <p>摘要<span class="num">(<span v-text="textnum"></span>/200)</span></p>
-      <textarea type="text" class="abstract" v-model="abstract" @keyup="calcTextNum"></textarea>
+    <div class="info-top">
+      <div class="info-left">
+        <div class="each-area">
+          <p>标题</p>
+          <input type="text" class="input" v-model="title">
+        </div>
+        <div class="each-area">
+          <p>索引</p>
+          <input type="text" class="input" v-model="name">
+        </div>
+        <div class="each-area">
+          <p>摘要<span class="num">(<span v-text="textnum"></span>/200)</span></p>
+          <textarea type="text" class="abstract" v-model="abstract" @keyup="calcTextNum"></textarea>
+        </div>
+      </div>
+      <div class="info-right">
+        <p>封面图</p>
+        <input type="text" class="input" v-model="img">
+        <div class="right-img">
+          <img :src="img" alt="">
+        </div>
+      </div>
     </div>
     <div class="editorContainer each-area">
       <p>内容</p>
@@ -53,7 +64,8 @@ export default {
       showdialog: false,
       isLoadingMsg: false,
       dialogstate: '',
-      dialogmessage: ''
+      dialogmessage: '',
+      img: ''
     }
   },
   components: {
@@ -87,11 +99,12 @@ export default {
         encodeText = this.htmlEncodeByRegExp(this.msg.mdValue);
       this.isLoadingMsg = true;
 
-      axios.post('/topic.php?name=adminarticle&op=submit', qs.stringify({
+      axios.post('/api/adminarticle/submit', qs.stringify({
         wentitle: _this.title,
         wenname: _this.name,
         wenabstract: _this.abstract,
-        wencontent: encodeText
+        wencontent: encodeText,
+        wenimg: _this.img
       })).then(function(data) {
 
         if(data.data.code == 0) {
@@ -127,11 +140,12 @@ export default {
       }
       var _this = this;
       this.isLoadingMsg = true;
-      axios.post('/topic.php?name=adminarticle&op=save', qs.stringify({
+      axios.post('/api/adminarticle/save', qs.stringify({
         wentitle: _this.title,
         wenname: _this.name,
         wenabstract: _this.abstract,
-        wencontent: _this.htmlEncodeByRegExp(_this.msg.mdValue)
+        wencontent: _this.htmlEncodeByRegExp(_this.msg.mdValue),
+        wenimg: _this.img
       })).then(function(data) {
 
         if(data.data.code == 0) {
@@ -183,7 +197,7 @@ export default {
   margin: 10px 20px;
   font-size: 16px;
 }
-.each-area > p {
+.info-top p {
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 5px;
@@ -196,11 +210,11 @@ export default {
   border-radius: 4px;
 }
 .input {
-  width: 60%;
+  width: calc(100% - 20px);
   height: 22px;
 }
 .abstract {
-  width: 60%;
+  width: calc(100% - 20px);
   height: 100px;
   resize: none;
 }
@@ -264,6 +278,41 @@ export default {
 }
 .disable:hover {
   cursor: not-allowed;
+}
+
+.info-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+.info-left {
+  /* flex-grow: 5.8; */
+  width: 58%;
+}
+.info-right { 
+  /* flex-grow: 4.2; */
+  width: 42%;
+  padding: 10px 20px 10px 0;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.right-img {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 213px;
+  margin-top: 13px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #ddd;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.right-img img {
+  max-width: 100%;
+  max-height: 100%;
 }
 </style>
 

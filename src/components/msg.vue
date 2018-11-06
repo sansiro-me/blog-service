@@ -1,11 +1,6 @@
 <template>
   <div class="manage">
     <p class="title">>留言管理</p>
-    <div class="options">
-      <select v-model="articleid" class="option-area">
-        <option v-for="todo in articlelist" :value="todo.id">{{ todo.title }}</option>
-      </select>
-    </div>
     <div class="inner">
       <table>
         <tr class="title-area">
@@ -16,7 +11,7 @@
           <th>邮箱</th>
           <th>操作</th>
         </tr>
-        <tr v-for="todo in msglist">
+        <tr v-for="(todo,index) in msglist" v-bind:key="index">
           <td v-text="todo.id"></td>
           <td v-text="todo.time"></td>
           <td v-text="todo.name"></td>
@@ -53,38 +48,26 @@ export default {
   },
   mounted () {
     // this.getMessageList();
-    this.getArticleList();
+    this.getMessageList();
   },
-  watch: {
-    articleid () {
-      this.getMessageList(this.articleid);
-      // console.log("change" + this.articlename)
-    }
-  },
+  // watch: {
+  //   articleid () {
+  //     this.getMessageList(this.articleid);
+  //     // console.log("change" + this.articlename)
+  //   }
+  // },
   methods: {
-    getArticleList() {
+    getMessageList () {
       var _this = this;
 
-      axios.get('/topic.php?name=article&op=adminlist')
-        .then(function(data) {
-          _this.articlelist = data.data;
-          _this.articlelist.push({
-            id: 0,
-            title: '留言板'
-          });
-        })
-    },
-    getMessageList (name) {
-      var _this = this;
-
-      axios.get('/topic.php?name=message&op=getlist&select=' + name)
+      axios.get('/api/message/getlist?select=bbs')
         .then(function(data) {
           _this.msglist = data.data;
         })
     },
     removeArticle(msgid) {
       var _this = this;
-      axios.get('/topic.php?name=message&op=remove', {
+      axios.get('/api/message/remove', {
         params: {
           msgid: msgid
         }
